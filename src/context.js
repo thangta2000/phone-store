@@ -21,6 +21,7 @@ class ProductProvider extends Component {
             const singleItem = { ...item };
             tempProducts = [...tempProducts, singleItem];
         })
+        
         this.setState({
             products: tempProducts
         })
@@ -28,6 +29,14 @@ class ProductProvider extends Component {
 
     componentDidMount() {
         this.setProducts();
+        const newState = JSON.parse(localStorage.getItem('state'));
+        this.setState({
+            products: newState.products,
+            cart: newState.cart,
+            cartSubTotal: newState.cartSubTotal,
+            cartTax: newState.cartTax,
+            cartTotal: newState.cartTotal
+        })
     }
 
     getItem = id => {
@@ -149,6 +158,11 @@ class ProductProvider extends Component {
             cartTotal: 0
         })
     }
+
+    componentDidUpdate(){
+        localStorage.setItem('state', JSON.stringify(this.state));
+    }
+
     render() {
         return (
             <ProductContext.Provider value={{
