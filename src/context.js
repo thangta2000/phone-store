@@ -30,6 +30,7 @@ class ProductProvider extends Component {
     componentDidMount() {
         this.setProducts();
         const newState = JSON.parse(localStorage.getItem('state'));
+        if(!newState) return null;
         this.setState({
             products: newState.products,
             cart: newState.cart,
@@ -164,6 +165,7 @@ class ProductProvider extends Component {
     }
 
     render() {
+
         return (
             <ProductContext.Provider value={{
                 ...this.state,
